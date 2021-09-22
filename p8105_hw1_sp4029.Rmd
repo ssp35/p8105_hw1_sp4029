@@ -37,3 +37,26 @@ as.numeric(pull(df, 4))
 ```
 
 The logical vector is converted into 1s and 0s because the vector is binary, so R assigns the value 1 to TRUE and 0 to FALSE. The character vector is converted into NAs because there is no way to assign a numeric value to characters. The factor vector is converted into 1s, 2s, and 3s because it is a factor with three levels, so R assigns a different value to each level. These results explain what happens when trying to take the mean. By treating the logical values as 1s and 0s, R is able to take the mean. Since there are no numerical values associated with the character vector, R is not able to take the mean. Even though there are numerical values associated with each of the factor levels, R cannot take the mean of the vector because the factor levels are treated as characters.
+
+### Problem 2
+
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+The column names are: `r colnames(penguins)`. 
+
+Two important variables are species and island. The values in these columns are: `r unique(penguins$species)` and `r unique(penguins$island)` respectively.
+
+The dataset spans the years `r unique(penguins$year)`.
+
+The size of the dataset is `r nrow(penguins)` x `r ncol(penguins)`.
+
+The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)`.
+
+```{r warning=FALSE}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + 
+  geom_point()
+ggsave("bill_len_vs_flipper_len.pdf", height = 4, width = 4)
+```
+
